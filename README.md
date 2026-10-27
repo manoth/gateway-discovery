@@ -5,9 +5,8 @@
 ## วิธีเปลี่ยน API URL
 
 1. แก้ `endpoints[].url` ใน `config.json`
-2. เพิ่ม `revision` ขึ้นอย่างน้อย 1 ทุกครั้ง
-3. Commit และ push เข้า branch `main`
-4. GitHub Actions จะตรวจสอบค่า เซ็น manifest และเผยแพร่ผ่าน GitHub Pages อัตโนมัติ
+2. Commit และ push เข้า branch `main`
+3. GitHub Actions จะสร้าง revision ใหม่ ตรวจสอบค่า เซ็น manifest และเผยแพร่ผ่าน GitHub Pages อัตโนมัติ
 
 Agent จะอ่านค่าจาก:
 
@@ -16,6 +15,7 @@ https://manoth.github.io/gateway-discovery/endpoint.json
 ```
 
 สำหรับ production ให้ใช้ URL แบบ HTTPS เท่านั้น ส่วน `http://localhost` อนุญาตเพื่อการจำลองในเครื่อง
+ค่า `revision` ในไฟล์ใช้เฉพาะตอน build ในเครื่อง เมื่อทำงานบน GitHub ระบบจะสร้าง revision ที่เพิ่มขึ้นให้อัตโนมัติ
 
 ## ความปลอดภัย
 

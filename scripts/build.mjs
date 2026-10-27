@@ -5,11 +5,13 @@ import path from "node:path";
 const root = path.resolve(import.meta.dirname, "..");
 const source = JSON.parse(await readFile(path.join(root, "config.json"), "utf8"));
 const privateKeyPem = process.env.DISCOVERY_PRIVATE_KEY;
+const githubRunNumber = Number(process.env.GITHUB_RUN_NUMBER || 0);
+const revision = githubRunNumber > 0 ? 1_000_000 + githubRunNumber : source.revision;
 
 if (!privateKeyPem) {
   throw new Error("DISCOVERY_PRIVATE_KEY is required");
 }
-if (!Number.isInteger(source.revision) || source.revision < 1) {
+if (!Number.isInteger(revision) || revision < 1) {
   throw new Error("config.json revision must be a positive integer");
 }
 if (!Array.isArray(source.endpoints) || source.endpoints.length === 0) {
@@ -30,7 +32,7 @@ expiresAt.setUTCDate(expiresAt.getUTCDate() + (source.expiresInDays ?? 365));
 
 const manifest = {
   schemaVersion: source.schemaVersion ?? 1,
-  revision: source.revision,
+  revision,
   issuedAt: issuedAt.toISOString(),
   expiresAt: expiresAt.toISOString(),
   endpoints: [...source.endpoints].sort((a, b) => a.priority - b.priority),
