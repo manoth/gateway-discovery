@@ -5,7 +5,7 @@
   "minimumAgentVersion": "0.1.0",
   "endpoints": [
     {
-      "url": "http://localhost:8080",
+      "url": "https://apicpho.moph.go.th/cpho-datacenter",
       "priority": 1
     }
   ]
