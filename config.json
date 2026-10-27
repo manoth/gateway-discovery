@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "revision": 3,
+  "expiresInDays": 365,
+  "minimumAgentVersion": "0.1.0",
+  "endpoints": [
+    {
+      "url": "http://localhost:8080",
+      "priority": 1
+    }
+  ]
+}
