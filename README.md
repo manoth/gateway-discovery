@@ -14,6 +14,15 @@ Agent จะอ่านค่าจาก:
 https://manoth.github.io/gateway-discovery/endpoint.json
 ```
 
+## GitLab Pages สำรอง
+
+Repository นี้มี `.gitlab-ci.yml` สำหรับเผยแพร่สำเนา manifest ที่เซ็นแล้วไปยัง GitLab Pages โดยไม่คัดลอก private signing key ไป GitLab
+Pipeline จะดาวน์โหลด `endpoint.json` และ `endpoint.json.sig` จาก GitHub Pages ตรวจรูปแบบ แล้วเก็บเป็น GitLab Pages deployment
+
+หลัง Import repository เข้า GitLab ให้เปิด Pages แบบ public และตั้ง Pipeline Schedule ให้รันวันละครั้ง จากนั้นเพิ่ม URL ที่ GitLab แสดงใน `discovery_urls` ของ Agent เป็นลำดับที่สอง
+
+หาก GitHub ใช้งานไม่ได้ Pipeline รอบใหม่จะล้มเหลว แต่ GitLab Pages deployment รอบล่าสุดยังคงเป็นแหล่งสำรองให้ Agent ได้
+
 สำหรับ production ให้ใช้ URL แบบ HTTPS เท่านั้น ส่วน `http://localhost` อนุญาตเพื่อการจำลองในเครื่อง
 ค่า `revision` ในไฟล์ใช้เฉพาะตอน build ในเครื่อง เมื่อทำงานบน GitHub ระบบจะสร้าง revision ที่เพิ่มขึ้นให้อัตโนมัติ
 

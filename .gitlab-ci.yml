@@ -1,0 +1,18 @@
+deploy-pages:
+  image: alpine:3.20
+
+  before_script:
+    - apk add --no-cache curl jq
+
+  script:
+    - mkdir -p public
+    - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/endpoint.json --output public/endpoint.json
+    - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/endpoint.json.sig --output public/endpoint.json.sig
+    - jq -e '.schemaVersion == 1 and (.revision | type == "number") and (.endpoints | length > 0)' public/endpoint.json >/dev/null
+    - test -s public/endpoint.json.sig
+
+  pages: true
+
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "schedule"
