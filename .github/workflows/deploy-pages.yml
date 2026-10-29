@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - config.json
+      - update.json
       - scripts/build.mjs
       - .github/workflows/deploy-pages.yml
   workflow_dispatch:
@@ -30,6 +31,7 @@ jobs:
       - name: Build and sign manifest
         env:
           DISCOVERY_PRIVATE_KEY: ${{ secrets.DISCOVERY_PRIVATE_KEY }}
+          UPDATE_PRIVATE_KEY: ${{ secrets.UPDATE_PRIVATE_KEY }}
         run: node scripts/build.mjs
       - uses: actions/upload-pages-artifact@v3
         with:

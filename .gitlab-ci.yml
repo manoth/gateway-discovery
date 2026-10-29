@@ -8,8 +8,12 @@ deploy-pages:
     - mkdir -p public
     - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/endpoint.json --output public/endpoint.json
     - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/endpoint.json.sig --output public/endpoint.json.sig
+    - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/update.json --output public/update.json
+    - curl --fail --silent --show-error --retry 3 --connect-timeout 10 https://manoth.github.io/gateway-discovery/update.json.sig --output public/update.json.sig
     - jq -e '.schemaVersion == 1 and (.revision | type == "number") and (.endpoints | length > 0)' public/endpoint.json >/dev/null
     - test -s public/endpoint.json.sig
+    - jq -e '.schemaVersion == 1 and (.revision | type == "number") and (.updateApis | length > 0) and (.downloadMirrors | length > 0)' public/update.json >/dev/null
+    - test -s public/update.json.sig
 
   pages: true
 

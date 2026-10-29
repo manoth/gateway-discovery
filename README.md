@@ -2,6 +2,13 @@
 
 แหล่งตั้งค่าปลายทาง API ส่วนกลางสำหรับ Health Agent ทุกหน่วยบริการ
 
+Repository เดียวกันเผยแพร่ manifest สองชนิดที่แยกหน้าที่กัน:
+
+- `endpoint.json` สำหรับค้นหา API ส่วนกลาง
+- `update.json` สำหรับค้นหา Update API และแหล่งดาวน์โหลด binary
+
+ทั้งสองไฟล์ถูกเซ็นด้วย Ed25519 และมี GitLab Pages เป็นสำเนาสำรอง
+
 ## วิธีเปลี่ยน API URL
 
 1. แก้ `endpoints[].url` ใน `config.json`
@@ -29,6 +36,6 @@ Pipeline จะดาวน์โหลด `endpoint.json` และ `endpoint.j
 ## ความปลอดภัย
 
 - Repository นี้เผยแพร่เฉพาะ URL และลายเซ็นสำหรับตรวจสอบ จึงไม่มีรหัสผ่านหรือข้อมูลลับ
-- Private signing key เก็บใน GitHub Actions secret ชื่อ `DISCOVERY_PRIVATE_KEY`
+- Private signing keys เก็บใน GitHub Actions secrets เท่านั้น: `DISCOVERY_PRIVATE_KEY` สำหรับ API endpoint และ `UPDATE_PRIVATE_KEY` สำหรับ update discovery/Agent release
 - ห้าม commit ไฟล์ `.pem`, `.env` หรือ private key
 - Repository ไม่มี collaborator บัญชีอื่น ผู้ที่แก้ไขและ publish ค่าได้โดยตรงจึงมีเพียงเจ้าของบัญชี `manoth`
