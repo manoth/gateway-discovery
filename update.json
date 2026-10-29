@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 1,
+  "revision": 2,
   "expiresInDays": 365,
   "updateApis": [
     {
@@ -11,7 +11,7 @@
   "downloadMirrors": [
     {
       "type": "github",
-      "baseUrl": "https://github.com/manoth/chaiyaphum-health-agent/releases/download",
+      "baseUrl": "https://github.com/manoth/chaiyaphum-health-agent-releases/releases/download",
       "priority": 1
     }
   ]
